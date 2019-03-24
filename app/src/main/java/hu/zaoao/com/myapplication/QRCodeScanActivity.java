@@ -47,14 +47,18 @@ public class QRCodeScanActivity extends BaseActivity implements EasyPermissions.
         super.onStop();
     }
 
-    @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
+
     private void requestCodeQRCodePermissions() {
         String[] perms = {Manifest.permission.CAMERA};
         if (!EasyPermissions.hasPermissions(this, perms)) {
             EasyPermissions.requestPermissions(this, "", REQUEST_CODE_QRCODE_PERMISSIONS, perms);
         }
     }
-
+    @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
+    private void start(){
+        mQRView.startCamera();
+        mQRView.startSpot();
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
